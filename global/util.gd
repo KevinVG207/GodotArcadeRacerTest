@@ -251,7 +251,7 @@ func save_json(path: String, object: Variant) -> void:
 
 func load_json(path: String) -> Variant:
 	var load_file: FileAccess = FileAccess.open(path, FileAccess.READ)
-	var object: Variant = JSON.parse_string(load_file.get_as_text(true))
+	var object: Variant = JSON.parse_string(load_file.get_as_text())
 	load_file.close()
 	return object
 

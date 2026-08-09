@@ -8,6 +8,10 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Uma Kart"
@@ -16,7 +20,7 @@ run/main_scene="res://scenes/ui/academy/menu_academy.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="KevinVG207/UmaKart"
 config/auto_accept_quit=false
-config/features=PackedStringArray("4.4", "Mobile")
+config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -238,14 +242,15 @@ locale/translations=PackedStringArray("res://loc/text.en.translation", "res://lo
 [physics]
 
 common/max_physics_steps_per_frame=60
-3d/physics_engine="Jolt Physics"
+3d/physics_engine="Rapier3D"
 jolt_physics_3d/queries/use_enhanced_internal_edge_removal=true
 3d/default_gravity=20.0
 3d/solver/contact_max_allowed_penetration=0.02
+rapier/solver/preset=2
 
 [rendering]
 
 textures/vram_compression/import_etc2_astc=true
 anti_aliasing/quality/msaa_3d=1
-textures/default_filters/texture_mipmap_bias=-1.0
 anti_aliasing/quality/use_debanding=true
+textures/default_filters/texture_mipmap_bias=-1.0
