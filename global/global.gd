@@ -7,6 +7,8 @@ signal camera_switched
 
 var args: Dictionary[String, String] = {}
 
+var debug := true;
+
 var default_player_count: int = 1
 var player_count: int = default_player_count:
 	set(value):

@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://eeu02ovykc1h"]
+
+[ext_resource type="PackedScene" uid="uid://ca0trtmu4b4w6" path="res://scenes/kart/Kart.tscn" id="1_guo3k"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_guo3k"]
+
+[node name="Default" instance=ExtResource("1_guo3k")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0"]
+shape = SubResource("BoxShape3D_guo3k")
+
+[node name="FrontRight" parent="Visual" index="0"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.501646, -0.5, 1.00165)
+
+[node name="FrontLeft" parent="Visual" index="1"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.498354, -0.5, 1.00165)
+
+[node name="BackRight" parent="Visual" index="2"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.601646, -0.5, -0.998354)
+
+[node name="BackLeft" parent="Visual" index="3"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.598354, -0.5, -0.998354)

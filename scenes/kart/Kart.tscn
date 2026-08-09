@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://ca0trtmu4b4w6"]
+
+[ext_resource type="Script" uid="uid://vmrxbgqbilge" path="res://scenes/kart/kart.gd" id="1_ovlqw"]
+
+[node name="Kart" type="RigidBody3D"]
+gravity_scale = 0.0
+lock_rotation = true
+continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 16
+script = ExtResource("1_ovlqw")
+
+[node name="Visual" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="FrontRight" type="Marker3D" parent="Visual"]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.501646, 0, 1.00165)
+
+[node name="FrontLeft" type="Marker3D" parent="Visual"]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.498354, 0, 1.00165)
+
+[node name="BackRight" type="Marker3D" parent="Visual"]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.601646, 0, -0.998354)
+
+[node name="BackLeft" type="Marker3D" parent="Visual"]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.598354, 0, -0.998354)

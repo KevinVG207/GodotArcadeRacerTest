@@ -53,7 +53,7 @@ func raycast_for_group(space_state: PhysicsDirectSpaceState3D, start_pos: Vector
 		# FIXME: Use shape!
 		var collider := result["collider"] as Node3D
 		var shape := get_collision_shape_from_idx(collider as CollisionObject3D, result["shape"])
-		if is_in_group_list(shape, group):
+		if is_in_group_list(collider, group):
 			out = result
 			result["start"] = start_pos
 			result["end"] = end_pos

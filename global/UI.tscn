@@ -15,7 +15,6 @@ script = ExtResource("1_4prdq")
 underwater_color = Color(0, 0.619608, 0.745098, 0.188235)
 
 [node name="RaceUI" parent="." instance=ExtResource("2_xaqxf")]
-visible = false
 
 [node name="Transition" type="CanvasLayer" parent="."]
 process_mode = 3

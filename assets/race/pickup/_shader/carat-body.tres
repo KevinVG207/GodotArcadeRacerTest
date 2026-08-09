@@ -60,7 +60,7 @@ op_type = 0
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
 
 uniform sampler2D tex_frg_2;
 
@@ -141,7 +141,7 @@ void fragment() {
 
 }
 "
-preview_params/tex_frg_2 = "Resource(\"res://assets/race/pickup/rainbow.png\")"
+preview_params/tex_frg_2 = "Resource(\"uid://cluba5ya60nd4\", \"res://assets/race/pickup/rainbow.png\")"
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_t8jfx")
 nodes/fragment/2/position = Vector2(-60, 300)
 nodes/fragment/3/node = SubResource("VisualShaderNodeInput_ugjva")
