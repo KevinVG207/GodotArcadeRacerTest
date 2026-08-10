@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=17 format=3 uid="uid://dj7xhpe2du7rk"]
+[gd_resource type="VisualShader" format=3 uid="uid://dj7xhpe2du7rk"]
 
 [ext_resource type="Texture2D" uid="uid://cluba5ya60nd4" path="res://assets/race/pickup/rainbow.png" id="1_t8jfx"]
 
@@ -59,89 +59,7 @@ default_input_values = [0, Vector2(0, 0), 1, Vector2(0, 0.5)]
 op_type = 0
 
 [resource]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
-
-uniform sampler2D tex_frg_2;
-
-
-
-void fragment() {
-// Input:3
-	vec2 n_out3p0 = SCREEN_UV;
-
-
-// Input:10
-	vec2 n_out10p0 = VIEWPORT_SIZE;
-
-
-// VectorDecompose:12
-	float n_out12p0 = n_out10p0.x;
-	float n_out12p1 = n_out10p0.y;
-
-
-// FloatOp:13
-	float n_out13p0 = n_out12p0 / n_out12p1;
-
-
-// VectorCompose:14
-	float n_in14p1 = 1.00000;
-	vec2 n_out14p0 = vec2(n_out13p0, n_in14p1);
-
-
-// VectorOp:11
-	vec3 n_out11p0 = vec3(n_out3p0, 0.0) * vec3(n_out14p0, 0.0);
-
-
-// FloatOp:17
-	float n_in17p1 = 0.50000;
-	float n_out17p0 = n_out14p0.x * n_in17p1;
-
-
-// VectorCompose:15
-	float n_in15p1 = 0.50000;
-	vec2 n_out15p0 = vec2(n_out17p0, n_in15p1);
-
-
-// VectorOp:8
-	vec2 n_out8p0 = vec2(n_out11p0.xy) - n_out15p0;
-
-
-// Input:7
-	float n_out7p0 = TIME;
-
-
-	vec3 n_out6p0;
-	mat4 n_out6p1;
-// RotationByAxis:6
-	vec3 n_in6p2 = vec3(0.00000, 0.00000, 1.00000);
-	{
-		float __angle = n_out7p0;
-		vec3 __axis = normalize(n_in6p2);
-		mat3 __rot_matrix = mat3(
-			vec3( cos(__angle)+__axis.x*__axis.x*(1.0 - cos(__angle)), __axis.x*__axis.y*(1.0-cos(__angle))-__axis.z*sin(__angle), __axis.x*__axis.z*(1.0-cos(__angle))+__axis.y*sin(__angle) ),
-			vec3( __axis.y*__axis.x*(1.0-cos(__angle))+__axis.z*sin(__angle), cos(__angle)+__axis.y*__axis.y*(1.0-cos(__angle)), __axis.y*__axis.z*(1.0-cos(__angle))-__axis.x*sin(__angle) ),
-			vec3( __axis.z*__axis.x*(1.0-cos(__angle))-__axis.y*sin(__angle), __axis.z*__axis.y*(1.0-cos(__angle))+__axis.x*sin(__angle), cos(__angle)+__axis.z*__axis.z*(1.0-cos(__angle)) )
-		);
-		n_out6p0 = vec3(n_out8p0, 0.0) * __rot_matrix;
-	}
-
-
-// VectorOp:9
-	vec2 n_out9p0 = vec2(n_out6p0.xy) + n_out15p0;
-
-
-// Texture2D:2
-	vec4 n_out2p0 = texture(tex_frg_2, n_out9p0);
-
-
-// Output:0
-	ALBEDO = vec3(n_out2p0.xyz);
-
-
-}
-"
-preview_params/tex_frg_2 = "Resource(\"res://assets/race/pickup/rainbow.png\")"
+preview_params/tex_frg_2 = "Resource(\"uid://cluba5ya60nd4\", \"res://assets/race/pickup/rainbow.png\")"
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_t8jfx")
 nodes/fragment/2/position = Vector2(-60, 300)
 nodes/fragment/3/node = SubResource("VisualShaderNodeInput_ugjva")

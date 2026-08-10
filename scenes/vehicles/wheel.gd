@@ -2,7 +2,7 @@ extends Node3D
 
 # We assume the wheel model has a radius of 1m
 
-@onready var parent: Vehicle4 = get_parent().get_parent().get_parent()
+@onready var parent: Vehicle4 = get_parent().get_parent().get_parent().get_parent()
 @onready var radius := scale.x
 var anchor := Vector3.ZERO
 @onready var initial_rotation := rotation_degrees

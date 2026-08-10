@@ -75,6 +75,7 @@ var username := "Player"
 var push_force: float = 8.0
 
 @onready var visual_node: Node3D = %Visual
+@onready var wheelie_node: Node3D = %WheelieAxis
 @onready var cpu_logic: CPULogic = %CPULogic
 @onready var audio: VehicleAudio = %VehicleAudio
 @onready var network: NetworkPlayer = %NetworkPlayer
@@ -212,6 +213,15 @@ var still_turbo_ready: bool = false
 var along_ground_multi := 0.0
 var along_ground_dec := 5.0
 var min_angle_to_detach := 10.0
+
+static var wheelie_gauge_max := 100.0
+static var wheelie_ticks := 4 * 60
+var wheelie_gauge := wheelie_gauge_max
+@export var wheelie_gauge_gain := 1.0
+var in_wheelie := false
+var wheelie_ticks_left := 0
+@export var wheelie_offset_y := 0.0
+@export var wheelie_offset_z := 0.0
 
 var respawn_stage := RespawnStage.NONE
 static var respawn_time: float = 3.5
@@ -408,7 +418,7 @@ func recursive_set_transparency(n: Node) -> void:
 		recursive_set_transparency(c)
 
 func setup_head() -> void:
-	$Visual/Character/Body.get_node("%Head").add_child(Util.get_random_head())
+	$Visual/WheelieAxis/Character/Body.get_node("%Head").add_child(Util.get_random_head())
 
 func setup_floor_check_grid() -> void:
 	var fl: Vector3 = %FrontLeft.position
@@ -1168,6 +1178,7 @@ func apply_velocities() -> void:
 			handle_trick()
 			handle_hop()
 			handle_drift()
+			handle_wheelie()
 
 		handle_standstill_turbo()
 

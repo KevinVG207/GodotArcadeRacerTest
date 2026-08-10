@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://ds7es8al63u4p"]
+[gd_scene format=3 uid="uid://ds7es8al63u4p"]
 
 [ext_resource type="Script" uid="uid://cam4qnh4qwq5x" path="res://scenes/vehicles/vehicle_4.gd" id="1_p7mde"]
 [ext_resource type="Texture2D" uid="uid://wg22vos12fxt" path="res://assets/vehicles/_default-icon.png" id="2_r88gu"]
@@ -662,6 +662,7 @@ animation = &"RESET"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_0tp0h"]
 graph_offset = Vector2(62.2422, -249.465)
+nodes/output/position = Vector2(1040, 0)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_x7a0q")
 nodes/Animation/position = Vector2(-40, 40)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_0tp0h")
@@ -678,8 +679,7 @@ nodes/Scale/node = SubResource("AnimationNodeBlend2_p1spk")
 nodes/Scale/position = Vector2(798.289, -147.09)
 nodes/Squish/node = SubResource("AnimationNodeBlend2_sy3d6")
 nodes/Squish/position = Vector2(440, -100)
-nodes/output/position = Vector2(1040, 0)
-node_connections = [&"Chargeup", 0, &"Animation", &"Chargeup", 1, &"ChargeupSpeed", &"ChargeupSpeed", 0, &"Animation 2", &"Scale", 0, &"Squish", &"Scale", 1, &"Animation 4", &"Squish", 0, &"Chargeup", &"Squish", 1, &"Animation 3", &"output", 0, &"Scale"]
+node_connections = [&"output", 0, &"Scale", &"Chargeup", 0, &"Animation", &"Chargeup", 1, &"ChargeupSpeed", &"ChargeupSpeed", 0, &"Animation 2", &"Scale", 0, &"Squish", &"Scale", 1, &"Animation 4", &"Squish", 0, &"Chargeup", &"Squish", 1, &"Animation 3"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bleu3"]
 animation = &"dmg_spin"
@@ -698,7 +698,7 @@ states/Start/position = Vector2(280, 93)
 states/dmg_spin/node = SubResource("AnimationNodeAnimation_bleu3")
 states/dmg_spin/position = Vector2(551, 208)
 transitions = ["Start", "Rest", SubResource("AnimationNodeStateMachineTransition_x7a0q"), "dmg_spin", "Rest", SubResource("AnimationNodeStateMachineTransition_0tp0h")]
-graph_offset = Vector2(-20, -116)
+graph_offset = Vector2(-12, 15)
 
 [sub_resource type="Animation" id="Animation_x7a0q"]
 resource_name = "Chargeup"
@@ -818,9 +818,10 @@ _data = {
 &"squish": SubResource("Animation_f8g0e")
 }
 
-[node name="Vehicle4" type="RigidBody3D" groups=["vehicle"]]
+[node name="Vehicle4" type="RigidBody3D" unique_id=230605474 groups=["vehicle"]]
 process_priority = 1000
 process_physics_priority = 1000
+transform = Transform3D(1, 0, -0.00018531481, 0, 1, 0, 0.00018531481, 0, 1, 0, 0, 0)
 collision_layer = 2
 collision_mask = 49
 mass = 10.0
@@ -833,65 +834,95 @@ contact_monitor = true
 max_contacts_reported = 16
 script = ExtResource("1_p7mde")
 icon = ExtResource("2_r88gu")
+radius = null
 vehicle_height_below = 0.5
+vehicle_length_ahead = null
+vehicle_length_behind = null
+chara_running_extra_y = null
+base_max_speed = null
+base_initial_accel = null
+base_accel_exponent = null
+reverse_multi = null
+base_grip = null
+terminal_velocity = null
+weight = null
+min_bounce_ratio = null
+outside_drift = null
+drift_gauge_multi = null
+outside_drift_slide_angle = null
+drift_tilt = null
+drift_tilt_degrees = null
+wheelie_gauge_gain = null
+wheelie_offset_y = null
+wheelie_offset_z = null
+base_max_turn_speed = null
+steer_speed_decrease = null
+drift_turn_multiplier = null
+drift_turn_min_multiplier = null
+air_turn_multiplier = null
+base_turn_accel = null
 
-[node name="Debug" type="Node3D" parent="."]
+[node name="Debug" type="Node3D" parent="." unique_id=2127923258]
 visible = false
 
-[node name="GravityVisualizer" type="Node3D" parent="Debug" node_paths=PackedStringArray("vehicle")]
+[node name="GravityVisualizer" type="Node3D" parent="Debug" unique_id=36435512 node_paths=PackedStringArray("vehicle")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 script = ExtResource("3_dqbc0")
 vehicle = NodePath("../..")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Debug/GravityVisualizer"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Debug/GravityVisualizer" unique_id=1852659838]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 mesh = SubResource("PrismMesh_gb5ec")
 
-[node name="PathPointVisualizer" type="Node3D" parent="Debug" node_paths=PackedStringArray("vehicle")]
+[node name="PathPointVisualizer" type="Node3D" parent="Debug" unique_id=88495732 node_paths=PackedStringArray("vehicle")]
 script = ExtResource("4_0tp0h")
 vehicle = NodePath("../..")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Debug/PathPointVisualizer"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Debug/PathPointVisualizer" unique_id=88574811]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 mesh = SubResource("PrismMesh_f8g0e")
 
-[node name="NetworkTruthVisualizer" type="Node3D" parent="Debug" node_paths=PackedStringArray("vehicle")]
+[node name="NetworkTruthVisualizer" type="Node3D" parent="Debug" unique_id=800948892 node_paths=PackedStringArray("vehicle")]
 script = ExtResource("5_f8g0e")
 vehicle = NodePath("../..")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Debug/NetworkTruthVisualizer"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Debug/NetworkTruthVisualizer" unique_id=1071917381]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 mesh = SubResource("PrismMesh_sy3d6")
 
-[node name="Visual" type="Node3D" parent="."]
+[node name="Visual" type="Node3D" parent="." unique_id=1135907798]
 unique_name_in_owner = true
 
-[node name="FrontRight" type="Marker3D" parent="Visual"]
+[node name="WheelieAxis" type="Node3D" parent="Visual" unique_id=808660153]
 unique_name_in_owner = true
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.501646, 0, 1.00165)
 
-[node name="FrontLeft" type="Marker3D" parent="Visual"]
+[node name="FrontRight" type="Marker3D" parent="Visual/WheelieAxis" unique_id=17939211]
 unique_name_in_owner = true
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.498354, 0, 1.00165)
+transform = Transform3D(-4.3713953e-08, 0, -1, 0, 0.99935, 0, 1, 0, -4.3713953e-08, -0.501646, 0, 1.00165)
 
-[node name="BackRight" type="Marker3D" parent="Visual"]
+[node name="FrontLeft" type="Marker3D" parent="Visual/WheelieAxis" unique_id=911145161]
 unique_name_in_owner = true
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.601646, 0, -0.998354)
+transform = Transform3D(-4.3713953e-08, 0, -1, 0, 0.99935, 0, 1, 0, -4.3713953e-08, 0.49835402, 0, 1.0016501)
 
-[node name="BackLeft" type="Marker3D" parent="Visual"]
+[node name="BackRight" type="Marker3D" parent="Visual/WheelieAxis" unique_id=252285161]
 unique_name_in_owner = true
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.598354, 0, -0.998354)
+transform = Transform3D(-4.3713953e-08, 0, -1, 0, 0.99935, 0, 1, 0, -4.3713953e-08, -0.601646, 0, -0.9983541)
 
-[node name="Front" type="Marker3D" parent="Visual"]
+[node name="BackLeft" type="Marker3D" parent="Visual/WheelieAxis" unique_id=1707853587]
 unique_name_in_owner = true
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.00164611, 0, 1.46982)
+transform = Transform3D(-4.3713953e-08, 0, -1, 0, 0.99935, 0, 1, 0, -4.3713953e-08, 0.598354, 0, -0.9983541)
 
-[node name="Back" type="Marker3D" parent="Visual"]
+[node name="Front" type="Marker3D" parent="Visual/WheelieAxis" unique_id=1649172452]
 unique_name_in_owner = true
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.00164598, 0, -1.46002)
+transform = Transform3D(-4.3713953e-08, 0, -1, 0, 0.99935, 0, 1, 0, -4.3713953e-08, -0.00164611, 0, 1.46982)
 
-[node name="BlobShadow" type="Decal" parent="Visual" node_paths=PackedStringArray("vehicle")]
+[node name="Back" type="Marker3D" parent="Visual/WheelieAxis" unique_id=1837657336]
 unique_name_in_owner = true
+transform = Transform3D(-4.3713953e-08, 0, -1, 0, 0.99935, 0, 1, 0, -4.3713953e-08, -0.0016459802, 0, -1.4600201)
+
+[node name="BlobShadow" type="Decal" parent="Visual/WheelieAxis" unique_id=2087268178 node_paths=PackedStringArray("vehicle")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.99935, 0, 0, 0, 1, 0, 0, 0)
 layers = 2
 size = Vector3(4, 8, 4)
 texture_albedo = ExtResource("4_piqwu")
@@ -900,277 +931,275 @@ upper_fade = 20.0
 lower_fade = 0.5
 cull_mask = 2
 script = ExtResource("5_x7a0q")
-vehicle = NodePath("../..")
+vehicle = NodePath("../../..")
 
-[node name="PlayerCollision" type="Node3D" parent="Visual"]
+[node name="PlayerCollision" type="Node3D" parent="Visual/WheelieAxis" unique_id=1647186120]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.99935, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Character" type="Node3D" parent="Visual"]
+[node name="Character" type="Node3D" parent="Visual/WheelieAxis" unique_id=1700736708]
 unique_name_in_owner = true
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.00164605, 0, 0.00164604)
+transform = Transform3D(-4.3713953e-08, 0, -1, 0, 0.99935, 0, 1, 0, -4.3713953e-08, -0.00164605, 0, 0.0016460401)
 
-[node name="CharacterAnimationPlayer" type="AnimationPlayer" parent="Visual/Character"]
+[node name="CharacterAnimationPlayer" type="AnimationPlayer" parent="Visual/WheelieAxis/Character" unique_id=2055970260]
 unique_name_in_owner = true
-libraries = {
-&"": SubResource("AnimationLibrary_54306")
-}
-autoplay = "sit"
+libraries/ = SubResource("AnimationLibrary_54306")
+autoplay = &"sit"
 
-[node name="Body" parent="Visual/Character" instance=ExtResource("6_6ard6")]
+[node name="Body" parent="Visual/WheelieAxis/Character" unique_id=419793362 instance=ExtResource("6_6ard6")]
 transform = Transform3D(-4.37114e-09, 0, 0.1, 0, 0.1, 0, -0.1, 0, -4.37114e-09, -0.342633, -0.988326, 0)
 
-[node name="Skeleton3D" parent="Visual/Character/Body/Armature" index="0"]
+[node name="Skeleton3D" parent="Visual/WheelieAxis/Character/Body/Armature" index="0"]
 bones/0/rotation = Quaternion(0, 1.19209e-07, 0, 1)
 bones/3/rest = Transform3D(-0.493239, -0.869894, -4.66584e-07, 0.869894, -0.493239, 2.68043e-07, -4.63306e-07, -2.7367e-07, 1, -4.14798e-07, 1.95149, -1.30496e-13)
 bones/3/position = Vector3(-4.14798e-07, 1.95149, -1.30496e-13)
-bones/3/rotation = Quaternion(-2.69043e-07, -1.62795e-09, 0.864071, 0.503369)
+bones/3/rotation = Quaternion(-2.6904314e-07, -1.627954e-09, 0.8640714, 0.5033692)
 bones/3/scale = Vector3(1, 1, 1)
 bones/4/rest = Transform3D(0.866161, 0.499765, -7.59675e-08, -0.499765, 0.866161, -2.23075e-07, -4.56853e-08, 2.31185e-07, 1, 8.26035e-07, 2.30621, -1.43045e-13)
 bones/4/position = Vector3(8.26035e-07, 2.30621, -1.43045e-13)
-bones/4/rotation = Quaternion(1.17567e-07, -7.83734e-09, -0.258688, 0.965961)
+bones/4/rotation = Quaternion(1.17567e-07, -7.837338e-09, -0.258688, 0.9659609)
 bones/4/scale = Vector3(1, 1, 1)
 bones/5/rest = Transform3D(0.999781, -0.0209391, 1.48376e-08, 0.0209391, 0.999781, 9.65922e-09, -1.50366e-08, -9.34642e-09, 1, 3.01749e-07, 2.75079, 4.42313e-13)
 bones/5/position = Vector3(3.01749e-07, 2.75079, 4.42313e-13)
-bones/5/rotation = Quaternion(-4.75167e-09, 7.46895e-09, 0.0104701, 0.999945)
+bones/5/rotation = Quaternion(-4.7516715e-09, 7.468953e-09, 0.010470103, 0.9999453)
 bones/6/rotation = Quaternion(0, -1.42109e-14, 0, 1)
 bones/7/rest = Transform3D(-0.493075, 0.869894, 0.012692, -0.869606, -0.493239, 0.0223844, 0.0257323, 1.38767e-07, 0.999669, 4.14419e-07, 1.95149, -2.97924e-08)
 bones/7/position = Vector3(4.14419e-07, 1.95149, -2.97924e-08)
-bones/7/rotation = Quaternion(-0.0111182, -0.00647702, -0.864, 0.503328)
+bones/7/rotation = Quaternion(-0.011118196, -0.006477018, -0.8639997, 0.50332785)
 bones/7/scale = Vector3(1, 1, 1)
-bones/8/rotation = Quaternion(0.0066567, 1.79934e-08, 0.258603, 0.965961)
+bones/8/rotation = Quaternion(0.006656698, 1.7993425e-08, 0.25860295, 0.9659608)
 bones/9/rest = Transform3D(0.999781, 0.0209322, 4.61102e-06, -0.0209322, 0.999781, 0.00053884, 6.66909e-06, -0.000538818, 1, 2.90563e-07, 2.75079, 1.79286e-08)
 bones/9/position = Vector3(2.90563e-07, 2.75079, 1.79286e-08)
-bones/9/rotation = Quaternion(-0.000269429, -5.14545e-07, -0.0104667, 0.999945)
+bones/9/rotation = Quaternion(-0.00026942906, -5.145446e-07, -0.010466703, 0.9999453)
 bones/10/rest = Transform3D(3.57628e-07, -0.958798, -0.284088, 2.98023e-08, -0.284088, 0.958798, -1, -4.47035e-07, -2.38419e-07, -7.96689e-21, -1.48733e-21, 2.84217e-14)
 bones/10/position = Vector3(-7.96689e-21, -1.48733e-21, 2.84217e-14)
-bones/10/rotation = Quaternion(0.566588, -0.423058, -0.566588, -0.423058)
+bones/10/rotation = Quaternion(0.566588, -0.42305797, -0.566588, -0.423058)
 bones/10/scale = Vector3(1, 1, 1)
-bones/11/rotation = Quaternion(-0.588622, 1.32982e-08, -7.08847e-08, 0.808408)
+bones/11/rotation = Quaternion(-0.5886222, 1.3298202e-08, -7.088473e-08, 0.8084083)
 bones/12/rest = Transform3D(1, 2.15338e-09, 2.0083e-08, -2.46558e-09, 0.999879, 0.0155589, -2.00471e-08, -0.0155589, 0.999879, 1.27898e-13, 4.3031, 8.94071e-08)
 bones/12/position = Vector3(1.27898e-13, 4.3031, 8.94071e-08)
-bones/12/rotation = Quaternion(-0.00777966, 1.00328e-08, -1.15477e-09, 0.99997)
-bones/13/rotation = Quaternion(-0.0366224, -6.6562e-08, 0.706313, 0.706951)
+bones/12/rotation = Quaternion(-0.007779658, 1.0032798e-08, -1.1547696e-09, 0.9999697)
+bones/13/rotation = Quaternion(-0.036622416, -6.656199e-08, 0.7063134, 0.7069514)
 bones/14/rest = Transform3D(2.38419e-07, 0.958798, -0.284088, 2.08616e-07, -0.284088, -0.958798, -1, 2.38419e-07, -2.38419e-07, -2.51774e-20, -1.25525e-20, 1.13687e-13)
 bones/14/position = Vector3(-2.51774e-20, -1.25525e-20, 1.13687e-13)
 bones/14/rotation = Quaternion(0.566588, 0.423058, -0.566588, 0.423058)
 bones/14/scale = Vector3(1, 1, 1)
 bones/15/rest = Transform3D(1, 1.26344e-08, 2.85925e-08, 2.3332e-08, 0.307048, -0.951694, -2.08033e-08, 0.951694, 0.307048, -9.76996e-14, 1.16482, -4.47035e-07)
 bones/15/position = Vector3(-9.76996e-14, 1.16482, -4.47035e-07)
-bones/15/rotation = Quaternion(0.588622, 1.52756e-08, 3.30823e-09, 0.808408)
+bones/15/rotation = Quaternion(0.58862215, 1.5275605e-08, 3.3082312e-09, 0.8084083)
 bones/16/rest = Transform3D(1, -1.91596e-10, -2.08608e-08, -1.32998e-10, 0.999879, -0.0155589, 2.08613e-08, 0.0155589, 0.999879, 1.95399e-14, 4.3031, -8.9407e-08)
 bones/16/position = Vector3(1.95399e-14, 4.3031, -8.9407e-08)
-bones/16/rotation = Quaternion(0.00777966, -1.04308e-08, 1.46498e-11, 0.99997)
+bones/16/rotation = Quaternion(0.007779658, -1.0430797e-08, 1.464979e-11, 0.9999697)
 bones/17/rest = Transform3D(-0.00224388, -0.998658, 0.0517337, 0.999392, -0.000439048, 0.0348706, -0.0348011, 0.0517805, 0.998052, -7.44066e-09, 4.06761, -3.59358e-08)
 bones/17/position = Vector3(-7.44066e-09, 4.06761, -3.59358e-08)
-bones/17/rotation = Quaternion(0.00598546, 0.0306302, 0.707237, 0.706288)
+bones/17/rotation = Quaternion(0.0059854565, 0.030630186, 0.70723665, 0.7062877)
 bones/17/scale = Vector3(1, 1, 1)
 bones/18/rest = Transform3D(0.574971, -0.485474, -0.658578, 0.4156, -0.520057, 0.746202, -0.704759, -0.702749, -0.0972549, -2.31492e-07, 1.95149, -3.35097e-07)
 bones/18/position = Vector3(-2.31492e-07, 1.95149, -3.35097e-07)
-bones/18/rotation = Quaternion(0.740318, -0.0235958, -0.460389, -0.4893)
+bones/18/rotation = Quaternion(0.740318, -0.023595791, -0.460389, -0.48929998)
 bones/18/scale = Vector3(1, 1, 1)
 bones/19/rest = Transform3D(0.961662, -0.252128, -0.107882, 0.26678, 0.768952, 0.580983, -0.0635253, -0.58749, 0.806734, -5.77414e-07, 1.64198, 1.32386e-07)
 bones/19/position = Vector3(-5.77414e-07, 1.64198, 1.32386e-07)
-bones/19/rotation = Quaternion(-0.310634, -0.0117922, 0.13795, 0.940392)
+bones/19/rotation = Quaternion(-0.31063402, -0.011792199, 0.13795, 0.9403921)
 bones/19/scale = Vector3(1, 1, 1)
 bones/20/rest = Transform3D(0.99499, -0.0999453, -0.00248054, 0.0997607, 0.990912, 0.0902261, -0.00655968, -0.0900215, 0.995918, -4.64631e-08, 2.66978, -1.00966e-07)
 bones/20/position = Vector3(-4.64631e-08, 2.66978, -1.00966e-07)
-bones/20/rotation = Quaternion(-0.0451647, 0.00102211, 0.0500403, 0.997725)
+bones/20/rotation = Quaternion(-0.0451647, 0.0010221099, 0.050040297, 0.99772495)
 bones/20/scale = Vector3(1, 1, 1)
 bones/21/rest = Transform3D(0.993118, -0.116699, -0.00992823, 0.116699, 0.978796, 0.168346, -0.00992817, -0.168346, 0.985678, -2.39239e-07, 1.65158, -1.18353e-09)
 bones/21/position = Vector3(-2.39239e-07, 1.65158, -1.18353e-09)
-bones/21/rotation = Quaternion(-0.0846229, -1.49135e-08, 0.0586614, 0.994685)
+bones/21/rotation = Quaternion(-0.08462288, -1.4913525e-08, 0.058661386, 0.9946848)
 bones/21/scale = Vector3(1, 1, 1)
 bones/22/rest = Transform3D(0.57497, 0.485474, 0.658578, -0.4156, -0.520057, 0.746202, 0.704759, -0.702749, -0.0972543, 2.31492e-07, 1.95149, -3.35097e-07)
 bones/22/position = Vector3(2.31492e-07, 1.95149, -3.35097e-07)
-bones/22/rotation = Quaternion(0.740318, 0.0235959, 0.460389, -0.4893)
+bones/22/rotation = Quaternion(0.74031806, 0.023595894, 0.46038902, -0.48930004)
 bones/23/rest = Transform3D(0.961662, 0.252128, 0.107882, -0.26678, 0.768952, 0.580983, 0.0635256, -0.58749, 0.806734, -7.07742e-08, 1.64198, 5.00914e-07)
 bones/23/position = Vector3(-7.07742e-08, 1.64198, 5.00914e-07)
-bones/23/rotation = Quaternion(-0.310634, 0.0117921, -0.13795, 0.940392)
+bones/23/rotation = Quaternion(-0.31063402, 0.011792101, -0.13795002, 0.9403922)
 bones/24/rest = Transform3D(0.99499, 0.0999453, 0.00248053, -0.0997607, 0.990912, 0.0902262, 0.00655969, -0.0900216, 0.995918, 2.98023e-07, 2.66978, -2.98023e-07)
 bones/24/position = Vector3(2.98023e-07, 2.66978, -2.98023e-07)
-bones/24/rotation = Quaternion(-0.0451647, -0.00102211, -0.0500403, 0.997725)
+bones/24/rotation = Quaternion(-0.0451647, -0.0010221096, -0.050040297, 0.99772495)
 bones/24/scale = Vector3(1, 1, 1)
 bones/25/rest = Transform3D(0.993118, 0.116699, 0.00992827, -0.116699, 0.978796, 0.168346, 0.00992813, -0.168346, 0.985678, 4.68921e-07, 1.65158, -2.20152e-07)
 bones/25/position = Vector3(4.68921e-07, 1.65158, -2.20152e-07)
-bones/25/rotation = Quaternion(-0.084623, 3.52082e-08, -0.0586614, 0.994685)
+bones/25/rotation = Quaternion(-0.08462299, 3.5208153e-08, -0.058661386, 0.9946848)
 bones/25/scale = Vector3(1, 1, 1)
 bones/26/rest = Transform3D(-0.434236, -0.900784, -0.0052932, 0.900799, -0.434229, -0.00240413, -0.000132859, -0.00581207, 0.999983, 4.14129e-07, 1.95149, -1.73591e-09)
 bones/26/position = Vector3(4.14129e-07, 1.95149, -1.73591e-09)
-bones/26/rotation = Quaternion(-0.00160188, -0.00242559, 0.846825, 0.531864)
+bones/26/rotation = Quaternion(-0.0016018796, -0.0024255896, 0.8468248, 0.53186387)
 bones/26/scale = Vector3(1, 1, 1)
 bones/27/rest = Transform3D(0.720686, -0.693227, 0.00688541, 0.693261, 0.720659, -0.00629908, -0.000595336, 0.00931305, 0.999956, -9.72128e-07, 1.96653, 1.2152e-09)
 bones/27/position = Vector3(-9.72128e-07, 1.96653, 1.2152e-09)
-bones/27/rotation = Quaternion(0.00420795, 0.00201629, 0.373702, 0.927537)
+bones/27/rotation = Quaternion(0.00420795, 0.00201629, 0.37370202, 0.92753714)
 bones/27/scale = Vector3(1, 1, 1)
 bones/28/rest = Transform3D(0.937434, -0.348161, -0.00117416, 0.348161, 0.937412, 0.00653357, -0.00117407, -0.00653359, 0.999978, -7.51345e-07, 4.41038, -4.37665e-09)
 bones/28/position = Vector3(-7.51345e-07, 4.41038, -4.37665e-09)
-bones/28/rotation = Quaternion(-0.00331914, -2.2332e-08, 0.17687, 0.984229)
+bones/28/rotation = Quaternion(-0.0033191387, -2.2332022e-08, 0.17686993, 0.9842286)
 bones/28/scale = Vector3(1, 1, 1)
 bones/29/rest = Transform3D(-0.434236, 0.900784, 0.00529231, -0.900799, -0.434229, -0.00240498, 0.000131705, -0.00581164, 0.999983, -4.14129e-07, 1.95149, -1.73701e-09)
 bones/29/position = Vector3(-4.14129e-07, 1.95149, -1.73701e-09)
-bones/29/rotation = Quaternion(-0.00160128, 0.00242571, -0.846825, 0.531864)
+bones/29/rotation = Quaternion(-0.0016012798, 0.0024257097, -0.8468248, 0.53186387)
 bones/29/scale = Vector3(1, 1, 1)
 bones/30/rest = Transform3D(0.720686, 0.693228, -0.00688568, -0.693262, 0.720659, -0.00629973, 0.000595079, 0.0093137, 0.999956, 8.6369e-07, 1.96653, 9.59666e-09)
 bones/30/position = Vector3(8.6369e-07, 1.96653, 9.59666e-09)
-bones/30/rotation = Quaternion(0.0042083, -0.0020163, -0.373702, 0.927537)
+bones/30/rotation = Quaternion(0.0042083003, -0.0020163003, -0.37370205, 0.92753714)
 bones/30/scale = Vector3(1, 1, 1)
 bones/31/rest = Transform3D(0.937434, 0.348161, 0.00117411, -0.348161, 0.937412, 0.00653324, 0.00117399, -0.00653326, 0.999978, 2.78575e-07, 4.41038, 9.31323e-10)
 bones/31/position = Vector3(2.78575e-07, 4.41038, 9.31323e-10)
-bones/31/rotation = Quaternion(-0.00331897, 3.01547e-08, -0.17687, 0.984229)
+bones/31/rotation = Quaternion(-0.0033189687, 3.0154652e-08, -0.17686993, 0.9842286)
 bones/31/scale = Vector3(1, 1, 1)
 bones/32/rest = Transform3D(0.464598, -0.547281, 0.696155, 0.454135, -0.527641, -0.717883, 0.760204, 0.649675, 0.00339866, 2.21538e-07, 1.95149, 3.62494e-07)
 bones/32/position = Vector3(2.21538e-07, 1.95149, 3.62494e-07)
-bones/32/rotation = Quaternion(0.705131, -0.0330245, 0.516343, 0.48486)
+bones/32/rotation = Quaternion(0.7051312, -0.033024505, 0.5163431, 0.48486012)
 bones/32/scale = Vector3(1, 1, 1)
 bones/33/rest = Transform3D(0.953661, -0.26354, 0.145183, 0.296058, 0.735823, -0.609027, 0.0536737, 0.623788, 0.779748, 5.15043e-08, 1.61838, 1.65112e-06)
 bones/33/position = Vector3(5.15043e-08, 1.61838, 1.65112e-06)
-bones/33/rotation = Quaternion(0.330942, 0.0245652, 0.150221, 0.931294)
+bones/33/rotation = Quaternion(0.33094183, 0.024565188, 0.15022093, 0.9312936)
 bones/33/scale = Vector3(1, 1, 0.999999)
 bones/34/rest = Transform3D(0.970953, -0.238347, 0.0210213, 0.238347, 0.95574, -0.172488, 0.021021, 0.172488, 0.984787, 1.43455e-07, 4.3258, 3.69606e-08)
 bones/34/position = Vector3(1.43455e-07, 4.3258, 3.69606e-08)
-bones/34/rotation = Quaternion(0.0872144, 7.06411e-08, 0.120514, 0.988873)
+bones/34/rotation = Quaternion(0.08721441, 7.064113e-08, 0.12051401, 0.9888731)
 bones/34/scale = Vector3(1, 1, 1)
 bones/35/rest = Transform3D(0.371927, 0.547281, -0.749769, -0.542063, -0.527641, -0.654036, -0.75355, 0.649676, 0.100417, 6.18482e-07, 1.95149, 2.61907e-07)
 bones/35/position = Vector3(6.18482e-07, 1.95149, 2.61907e-07)
-bones/35/rotation = Quaternion(0.670662, 0.00194509, -0.560386, 0.485979)
+bones/35/rotation = Quaternion(0.6706622, 0.0019450856, -0.5603862, 0.48597917)
 bones/35/scale = Vector3(1, 1, 1)
 bones/36/rest = Transform3D(0.925649, 0.341015, -0.163962, -0.371383, 0.735823, -0.56625, -0.0724527, 0.585041, 0.807761, -3.67095e-07, 1.61838, -1.02495e-06)
 bones/36/position = Vector3(-3.67095e-07, 1.61838, -1.02495e-06)
-bones/36/rotation = Quaternion(0.309057, -0.0245651, -0.191239, 0.931294)
+bones/36/rotation = Quaternion(0.30905694, -0.024565097, -0.19123895, 0.9312937)
 bones/37/rest = Transform3D(0.965855, 0.258416, -0.0185844, -0.258416, 0.95574, -0.14065, -0.0185843, 0.14065, 0.989885, -1.23869e-07, 4.3258, 1.65142e-07)
 bones/37/position = Vector3(-1.23869e-07, 4.3258, 1.65142e-07)
-bones/37/rotation = Quaternion(0.0711162, -1.73859e-08, -0.130662, 0.988873)
+bones/37/rotation = Quaternion(0.07111621, -1.7385888e-08, -0.13066201, 0.9888731)
 bones/37/scale = Vector3(1, 1, 1)
-bones/39/rotation = Quaternion(-0.641423, 8.70988e-15, -1.52927e-07, 0.767187)
-bones/40/rotation = Quaternion(-0.176363, -1.07117e-14, -4.20483e-08, 0.984325)
+bones/39/rotation = Quaternion(-0.6414232, 8.7098755e-15, -1.5292706e-07, 0.76718736)
+bones/40/rotation = Quaternion(-0.17636305, -1.0711653e-14, -4.2048306e-08, 0.9843253)
 bones/40/scale = Vector3(1, 1, 1)
-bones/41/rotation = Quaternion(-0.0719826, 7.55599e-15, -1.7162e-08, 0.997406)
-bones/42/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
+bones/41/rotation = Quaternion(-0.071982585, 7.555985e-15, -1.7161996e-08, 0.9974059)
+bones/42/rotation = Quaternion(0, 0, 0, 1)
 
-[node name="BaseAttachment" parent="Visual/Character/Body/Armature/Skeleton3D" index="1"]
-transform = Transform3D(1, 0, 2.38418e-07, 0, 1, 0, -2.38418e-07, 0, 1, 0, 9.26224, 0)
+[node name="BaseAttachment" parent="Visual/WheelieAxis/Character/Body/Armature/Skeleton3D" index="1"]
+transform = Transform3D(1, 0, 2.38418e-07, 0, 1, 0, -2.38418e-07, 0, 1, 0, 9.262238, 0)
 
-[node name="HeadAttachment" parent="Visual/Character/Body/Armature/Skeleton3D" index="2"]
-transform = Transform3D(1, 0, 2.38418e-07, 0, 1, 0, -2.38418e-07, 0, 1, 0, 15.1167, 0)
+[node name="HeadAttachment" parent="Visual/WheelieAxis/Character/Body/Armature/Skeleton3D" index="2"]
+transform = Transform3D(1, 0, 2.3841797e-07, 0, 0.99999994, 0, -2.3841797e-07, 0, 1, 0, 15.116722, 0)
 
-[node name="VehicleBody" type="Node3D" parent="Visual"]
+[node name="VehicleBody" type="Node3D" parent="Visual/WheelieAxis" unique_id=1325365478]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.99935, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="DriftParticles" type="Node3D" parent="Visual"]
+[node name="DriftParticles" type="Node3D" parent="Visual/WheelieAxis" unique_id=1112961024]
 unique_name_in_owner = true
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.00164605, 0, 0.00164604)
+transform = Transform3D(-4.3713953e-08, 0, -1, 0, 0.99935, 0, 1, 0, -4.3713953e-08, -0.00164605, 0, 0.0016460401)
 
-[node name="DriftCenterCharging" type="Node3D" parent="Visual/DriftParticles"]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.116348, 0, 0)
-
-[node name="DriftCenterCharged" type="Node3D" parent="Visual/DriftParticles"]
+[node name="DriftCenterCharging" type="Node3D" parent="Visual/WheelieAxis/DriftParticles" unique_id=1038137815]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.116348, 0, 0)
 
-[node name="DriftRightCharging" type="Node3D" parent="Visual/DriftParticles"]
+[node name="DriftCenterCharged" type="Node3D" parent="Visual/WheelieAxis/DriftParticles" unique_id=1925370627]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.116348, 0, 0)
 
-[node name="DriftRightCharged" type="Node3D" parent="Visual/DriftParticles"]
+[node name="DriftRightCharging" type="Node3D" parent="Visual/WheelieAxis/DriftParticles" unique_id=1223531400]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.116348, 0, 0)
 
-[node name="DriftLeftCharging" type="Node3D" parent="Visual/DriftParticles"]
+[node name="DriftRightCharged" type="Node3D" parent="Visual/WheelieAxis/DriftParticles" unique_id=619813045]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.116348, 0, 0)
 
-[node name="DriftLeftCharged" type="Node3D" parent="Visual/DriftParticles"]
+[node name="DriftLeftCharging" type="Node3D" parent="Visual/WheelieAxis/DriftParticles" unique_id=339917941]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.116348, 0, 0)
 
-[node name="ExhaustParticles" type="Node3D" parent="Visual"]
+[node name="DriftLeftCharged" type="Node3D" parent="Visual/WheelieAxis/DriftParticles" unique_id=2115855131]
 unique_name_in_owner = true
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.00164605, 0, 0.00164604)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.116348, 0, 0)
 
-[node name="ExhaustIdle" type="Node3D" parent="Visual/ExhaustParticles"]
+[node name="ExhaustParticles" type="Node3D" parent="Visual/WheelieAxis" unique_id=9001587]
+unique_name_in_owner = true
+transform = Transform3D(-4.3713953e-08, 0, -1, 0, 0.99935, 0, 1, 0, -4.3713953e-08, -0.00164605, 0, 0.0016460401)
+
+[node name="ExhaustIdle" type="Node3D" parent="Visual/WheelieAxis/ExhaustParticles" unique_id=595436698]
 unique_name_in_owner = true
 
-[node name="ExhaustBoost" type="Node3D" parent="Visual/ExhaustParticles"]
+[node name="ExhaustBoost" type="Node3D" parent="Visual/WheelieAxis/ExhaustParticles" unique_id=1635920793]
 unique_name_in_owner = true
 
-[node name="VehicleAudio" parent="Visual" node_paths=PackedStringArray("parent") instance=ExtResource("13_jx4i7")]
+[node name="VehicleAudio" parent="Visual/WheelieAxis" unique_id=748251208 node_paths=PackedStringArray("parent") instance=ExtResource("13_jx4i7")]
 unique_name_in_owner = true
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.00164605, 0, 0.00164604)
-parent = NodePath("../..")
+transform = Transform3D(-4.3713953e-08, 0, -1, 0, 0.99935, 0, 1, 0, -4.3713953e-08, -0.00164605, 0, 0.0016460401)
+parent = NodePath("../../..")
 
-[node name="Wheels" type="Node3D" parent="Visual"]
+[node name="Wheels" type="Node3D" parent="Visual/WheelieAxis" unique_id=756228212]
 unique_name_in_owner = true
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.00164605, 0, 0.00164604)
+transform = Transform3D(-4.3713953e-08, 0, -1, 0, 0.99935, 0, 1, 0, -4.3713953e-08, -0.00164605, 0, 0.0016460401)
 
-[node name="VehicleAnimationTree" type="AnimationTree" parent="."]
+[node name="VehicleAnimationTree" type="AnimationTree" parent="." unique_id=231422233]
 unique_name_in_owner = true
 root_node = NodePath("%Visual")
 tree_root = SubResource("AnimationNodeStateMachine_nguqk")
 anim_player = NodePath("../VehicleAnimationPlayer")
 parameters/Rest/Chargeup/blend_amount = false
 parameters/Rest/ChargeupSpeed/scale = false
-parameters/Rest/Scale/blend_amount = 0
+parameters/Rest/Scale/blend_amount = 0.0
 parameters/Rest/Squish/blend_amount = 0.001
 script = ExtResource("4_gc5eh")
 
-[node name="VehicleAnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="VehicleAnimationPlayer" type="AnimationPlayer" parent="." unique_id=2125832939]
 unique_name_in_owner = true
 root_node = NodePath("../Visual")
-libraries = {
-&"": SubResource("AnimationLibrary_yrkfx")
-}
+libraries/ = SubResource("AnimationLibrary_yrkfx")
 
-[node name="Collision" type="Node3D" parent="."]
+[node name="Collision" type="Node3D" parent="." unique_id=38209686]
 transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 0, 0, 0)
 
-[node name="Items" type="Node3D" parent="."]
+[node name="Items" type="Node3D" parent="." unique_id=781960353]
 unique_name_in_owner = true
 transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 0, 0, 0)
 
-[node name="StillTurboTimer" type="Timer" parent="."]
+[node name="StillTurboTimer" type="Timer" parent="." unique_id=1105202469]
 unique_name_in_owner = true
 process_callback = 0
 wait_time = 1.5
 one_shot = true
 
-[node name="BoostTimer" type="Timer" parent="."]
+[node name="BoostTimer" type="Timer" parent="." unique_id=1341556338]
 unique_name_in_owner = true
 process_callback = 0
 one_shot = true
 
-[node name="TrickTimer" type="Timer" parent="."]
+[node name="TrickTimer" type="Timer" parent="." unique_id=119404276]
 one_shot = true
 
-[node name="ItemRouletteTimer" type="Timer" parent="."]
+[node name="ItemRouletteTimer" type="Timer" parent="." unique_id=775679859]
 unique_name_in_owner = true
 one_shot = true
 
-[node name="RespawnTimer" type="Timer" parent="."]
+[node name="RespawnTimer" type="Timer" parent="." unique_id=1304612288]
 unique_name_in_owner = true
 process_callback = 0
 one_shot = true
 
-[node name="FailsafeTimer" type="Timer" parent="."]
+[node name="FailsafeTimer" type="Timer" parent="." unique_id=930287888]
 wait_time = 10.0
 one_shot = true
 
-[node name="DamageTimer" type="Timer" parent="."]
+[node name="DamageTimer" type="Timer" parent="." unique_id=492421627]
 unique_name_in_owner = true
 process_callback = 0
 one_shot = true
 
-[node name="SquishTimer" type="Timer" parent="."]
+[node name="SquishTimer" type="Timer" parent="." unique_id=966854994]
 unique_name_in_owner = true
 process_callback = 0
 one_shot = true
 
-[node name="CPULogic" type="Node" parent="." node_paths=PackedStringArray("parent")]
+[node name="CPULogic" type="Node" parent="." unique_id=48008587 node_paths=PackedStringArray("parent")]
 unique_name_in_owner = true
 script = ExtResource("12_u6ron")
 parent = NodePath("..")
 
-[node name="NetworkPlayer" type="Node" parent="."]
+[node name="NetworkPlayer" type="Node" parent="." unique_id=1818188862]
 unique_name_in_owner = true
 script = ExtResource("14_284x6")
 
@@ -1181,4 +1210,4 @@ script = ExtResource("14_284x6")
 [connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]
 [connection signal="timeout" from="SquishTimer" to="." method="_on_squish_timer_timeout"]
 
-[editable path="Visual/Character/Body"]
+[editable path="Visual/WheelieAxis/Character/Body"]
