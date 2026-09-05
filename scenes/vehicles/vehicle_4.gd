@@ -277,7 +277,7 @@ enum BoostType {
 	BIG
 }
 
-var boosts := {
+static var boosts: Dictionary[BoostType,Boost] = {
 	BoostType.SMALL: Boost.new(0.6, 1.2, 5, 1),
 	BoostType.NORMAL: Boost.new(1.5, 1.4, 5, 1),
 	BoostType.BIG: Boost.new(2.5, 1.6, 5, 1)
@@ -1178,7 +1178,7 @@ func apply_velocities() -> void:
 			handle_trick()
 			handle_hop()
 			handle_drift()
-			handle_wheelie()
+			#handle_wheelie()
 
 		handle_standstill_turbo()
 

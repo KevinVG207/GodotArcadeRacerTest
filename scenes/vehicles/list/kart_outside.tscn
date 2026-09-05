@@ -847,8 +847,32 @@ particles_anim_loop = false
 material = SubResource("StandardMaterial3D_bwgu6")
 
 [node name="KartOutside" unique_id=96452490 instance=ExtResource("1_qk7b2")]
+radius = 2.2
+vehicle_length_ahead = 1.5
+vehicle_length_behind = 1.5
+chara_running_extra_y = 0.46
+base_max_speed = 25.0
+base_initial_accel = 10.0
+base_accel_exponent = 10.0
+reverse_multi = 0.5
+base_grip = 100.0
+terminal_velocity = 3000.0
+weight = 1.0
+min_bounce_ratio = 0.5
 outside_drift = true
+drift_gauge_multi = 55.0
+outside_drift_slide_angle = 45.0
+drift_tilt = false
+drift_tilt_degrees = 20.0
+wheelie_gauge_gain = 1.0
+wheelie_offset_y = 0.0
+wheelie_offset_z = 0.0
+base_max_turn_speed = 80.0
+steer_speed_decrease = 0.025
 drift_turn_multiplier = 1.5
+drift_turn_min_multiplier = 0.5
+air_turn_multiplier = 0.5
+base_turn_accel = 800.0
 
 [node name="CollisionShape3D6" type="CollisionShape3D" parent="." index="0" unique_id=144240168]
 transform = Transform3D(1.5255e-09, 0.0348995, -0.999391, 1, -4.37114e-08, 0, -4.36848e-08, -0.999391, -0.0348995, 0.3, -0.0035522, 0.106)

@@ -23,8 +23,15 @@ var squish_amount: float = 0.0
 const SCALE_BLEND := "parameters/Rest/Scale/blend_amount"
 var scale: float = 1.0
 
-var wheelie_amount := deg_to_rad(25)
-var wheelie_up_ticks := 15
+var wheelie_amount := deg_to_rad(10)
+#var wheelie_up_ticks := 15
+
+var cur_wheelie_rad := 0.0
+var wheelie_target := 0.0
+var wheelie_speed := 0.4
+var boost_wheelie_speed := wheelie_speed * 3
+var cur_wheelie_speed := wheelie_speed
+
 
 var secs_since_physics_tick := 0.0
 var ratio_of_tick_since_last_physics := 0.0
@@ -35,10 +42,24 @@ var ratio_of_tick_since_last_physics := 0.0
 func _physics_process(delta: float) -> void:
 	secs_since_physics_tick += delta
 	ratio_of_tick_since_last_physics = secs_since_physics_tick / (1.0 / Engine.physics_ticks_per_second)
+	
+	cur_wheelie_speed = wheelie_speed
+	if vehicle.cur_boost_type != Vehicle4.BoostType.NONE:
+		var cur_boost := Vehicle4.boosts[vehicle.cur_boost_type]
+		wheelie_target = wheelie_amount * cur_boost.speed_multi
+		cur_wheelie_speed = boost_wheelie_speed
+	elif vehicle.cur_speed <= vehicle.base_max_speed:
+		wheelie_target = 0
+	else:
+		wheelie_target = wheelie_amount * remap(vehicle.cur_speed, vehicle.base_max_speed, vehicle.base_max_speed * 2, 0, 1)
+	
+	if !vehicle.grounded or vehicle.in_hop or vehicle.in_bounce or vehicle.in_drift or vehicle.in_cannon or vehicle.cur_damage_type != Vehicle4.DamageType.NONE:
+		wheelie_target = 0
+		cur_wheelie_speed = boost_wheelie_speed
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	blend_chargeup()
-	rotate_wheelie()
+	rotate_wheelie(delta)
 	self.set(SQUISH_BLEND, squish_amount)
 	self.set(SCALE_BLEND, scale - 1.0)
 	
@@ -56,22 +77,26 @@ func blend_chargeup() -> void:
 	var speed := clampf(remap(ratio, 0, 1, 0, 10), 0, 2.0)
 	self.set(CHARGEUP_SPEED, speed)
 	
-func rotate_wheelie() -> void:
-	if !vehicle.in_wheelie:
-		vehicle.wheelie_node.rotation.x = 0
-		return
+func rotate_wheelie(delta) -> void:
+	cur_wheelie_rad = clampf(move_toward(cur_wheelie_rad, wheelie_target, delta * cur_wheelie_speed), 0, 2*wheelie_amount)
 	
-	if vehicle.wheelie_ticks_left > vehicle.wheelie_ticks - wheelie_up_ticks:
-		# Wheelie going up
-		var ticks_going_up := absf(vehicle.wheelie_ticks_left - vehicle.wheelie_ticks - ratio_of_tick_since_last_physics)
-		var ratio_going_up := ticks_going_up / wheelie_up_ticks
-		var rads_going_up := clampf(wheelie_amount * ratio_going_up, 0, wheelie_amount)
-		vehicle.wheelie_node.rotation.x = -rads_going_up
-	else :
-		# Wheelie going down
-		var down_length := float(vehicle.wheelie_ticks - wheelie_up_ticks)
-		var ticks_going_down: float = down_length - vehicle.wheelie_ticks_left + ratio_of_tick_since_last_physics
-		var ratio_going_down := 1.0 - (ticks_going_down / down_length)
-		var rads_going_down := clampf(wheelie_amount * ratio_going_down, 0, wheelie_amount)
-		vehicle.wheelie_node.rotation.x = -rads_going_down
-		return
+	vehicle.wheelie_node.rotation.x = -cur_wheelie_rad
+	
+	#if !vehicle.in_wheelie:
+		#vehicle.wheelie_node.rotation.x = 0
+		#return
+	#
+	#if vehicle.wheelie_ticks_left > vehicle.wheelie_ticks - wheelie_up_ticks:
+		## Wheelie going up
+		#var ticks_going_up := absf(vehicle.wheelie_ticks_left - vehicle.wheelie_ticks - ratio_of_tick_since_last_physics)
+		#var ratio_going_up := ticks_going_up / wheelie_up_ticks
+		#var rads_going_up := clampf(wheelie_amount * ratio_going_up, 0, wheelie_amount)
+		#vehicle.wheelie_node.rotation.x = -rads_going_up
+	#else :
+		## Wheelie going down
+		#var down_length := float(vehicle.wheelie_ticks - wheelie_up_ticks)
+		#var ticks_going_down: float = down_length - vehicle.wheelie_ticks_left + ratio_of_tick_since_last_physics
+		#var ratio_going_down := 1.0 - (ticks_going_down / down_length)
+		#var rads_going_down := clampf(wheelie_amount * ratio_going_down, 0, wheelie_amount)
+		#vehicle.wheelie_node.rotation.x = -rads_going_down
+		#return
